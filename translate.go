@@ -27,11 +27,12 @@ import (
 
 var (
 	inTreePlugins = map[string]plugins.InTreePlugin{
-		plugins.GCEPDDriverName:     plugins.NewGCEPersistentDiskCSITranslator(),
-		plugins.AWSEBSDriverName:    plugins.NewAWSElasticBlockStoreCSITranslator(),
-		plugins.CinderDriverName:    plugins.NewOpenStackCinderCSITranslator(),
-		plugins.AzureDiskDriverName: plugins.NewAzureDiskCSITranslator(),
-		plugins.AzureFileDriverName: plugins.NewAzureFileCSITranslator(),
+		plugins.GCEPDDriverName:         plugins.NewGCEPersistentDiskCSITranslator(),
+		plugins.AWSEBSDriverName:        plugins.NewAWSElasticBlockStoreCSITranslator(),
+		plugins.CinderDriverName:        plugins.NewOpenStackCinderCSITranslator(),
+		plugins.AzureDiskDriverName:     plugins.NewAzureDiskCSITranslator(),
+		plugins.AzureFileDriverName:     plugins.NewAzureFileCSITranslator(),
+		plugins.VSphereInTreePluginName: plugins.NewvSphereCSITranslator(),
 	}
 )
 

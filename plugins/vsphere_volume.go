@@ -27,7 +27,7 @@ import (
 
 const (
 	// VSphereCSIDriverName is the name of the CSI driver for vSphere Volume
-	VSphereCSIDriverName = "csi.vsphere.vmware.com"
+	VSphereDriverName = "csi.vsphere.vmware.com"
 	// VSphereInTreePluginName is the name of the intree plugin for vSphere Volume
 	VSphereInTreePluginName = "kubernetes.io/vsphere-volume"
 )
@@ -67,13 +67,13 @@ func (t *vSphereCSITranslator) TranslateInTreeInlineVolumeToCSI(volume *v1.Volum
 		ObjectMeta: metav1.ObjectMeta{
 			// Must be unique per disk as it is used as the unique part of the
 			// staging path
-			Name: fmt.Sprintf("%s-%s", VSphereCSIDriverName, volume.VsphereVolume.VolumePath),
+			Name: fmt.Sprintf("%s-%s", VSphereDriverName, volume.VsphereVolume.VolumePath),
 		},
 
 		Spec: v1.PersistentVolumeSpec{
 			PersistentVolumeSource: v1.PersistentVolumeSource{
 				CSI: &v1.CSIPersistentVolumeSource{
-					Driver:       VSphereCSIDriverName,
+					Driver:       VSphereDriverName,
 					VolumeHandle: volume.VsphereVolume.VolumePath,
 					FSType:       volume.VsphereVolume.FSType,
 					VolumeAttributes: map[string]string{
@@ -94,7 +94,7 @@ func (t *vSphereCSITranslator) TranslateInTreePVToCSI(pv *v1.PersistentVolume) (
 		return nil, fmt.Errorf("pv is nil or VsphereVolume not defined on pv")
 	}
 	csiSource := &v1.CSIPersistentVolumeSource{
-		Driver:       VSphereCSIDriverName,
+		Driver:       VSphereDriverName,
 		VolumeHandle: pv.Spec.VsphereVolume.VolumePath,
 		FSType:       pv.Spec.VsphereVolume.FSType,
 		VolumeAttributes: map[string]string{
@@ -133,7 +133,7 @@ func (t *vSphereCSITranslator) GetInTreePluginName() string {
 
 // GetCSIPluginName returns the name of the CSI plugin
 func (t *vSphereCSITranslator) GetCSIPluginName() string {
-	return VSphereCSIDriverName
+	return VSphereDriverName
 }
 
 func (t *vSphereCSITranslator) RepairVolumeHandle(volumeHandle, nodeID string) (string, error) {
